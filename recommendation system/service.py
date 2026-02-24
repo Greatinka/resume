@@ -33,7 +33,7 @@ def batch_load_sql(query: str) -> pd.DataFrame:
     return pd.concat(chunks, ignore_index=True)
 
 # Function to determine the model file path based on the environment
-# Adapts paths for both local environment and LMS
+# Adapts paths for both local environment and work enviroment
 def get_model_path(path: str) -> str:
     if os.environ.get("IS_LMS") == "1":  # If running in LMS
         MODEL_PATH = '/workdir/user_input/model'
