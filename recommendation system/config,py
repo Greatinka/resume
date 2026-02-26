@@ -1,0 +1,35 @@
+"""Configuration settings for the recommendation API."""
+
+import os
+from typing import Final
+
+# Database connection settings
+DB_CONNECTION_STRING: Final[str] = "################################"
+
+# Data loading settings
+LIKE_QUERY: Final[str] = (
+    "SELECT DISTINCT post_id, user_id, target "
+    "FROM public.feed_data WHERE action='like' LIMIT 1000000"
+)
+VIEW_QUERY: Final[str] = (
+    "SELECT DISTINCT post_id, user_id, target "
+    "FROM public.feed_data WHERE action='view' LIMIT 1000000"
+)
+USER_QUERY: Final[str] = "SELECT age, exp_group, user_id FROM user_data"
+POST_QUERY: Final[str] = "SELECT * FROM post_text_df"
+
+# Model settings
+MODEL_FILENAME: Final[str] = "catboost_hitrate_model.cbm"
+MODEL_PATH_LMS: Final[str] = '/workdir/user_input/model'
+DEFAULT_CHUNKSIZE: Final[int] = 200000
+
+# API settings
+DEFAULT_RECOMMENDATION_LIMIT: Final[int] = 10
+API_HOST: Final[str] = "0.0.0.0"
+API_PORT: Final[int] = 8000
+
+# Environment settings
+IS_LMS_ENV: Final[bool] = os.environ.get("IS_LMS") == "1"
+
+# Categorical columns
+CATEGORICAL_COLUMNS: Final[list] = ['post_id', 'age', 'exp_group', 'topic']
